@@ -1,0 +1,41 @@
+[package]
+name = "near-vm-runner"
+version = "0.6.0"
+authors = ["Near Inc <hello@nearprotocol.com>"]
+edition = "2018"
+license = "Apache-2.0"
+readme = "README.md"
+categories = ["wasm"]
+repository = "https://github.com/nearprotocol/nearcore"
+homepage = "https://github.com/nearprotocol/nearcore"
+description = """
+This crate implements the specification of the interface that Near blockchain exposes to the smart contracts.
+"""
+
+[dependencies]
+cached = "0.12.0"
+wasmer-runtime = { version = "0.13.1", features = ["default-backend-singlepass"], default-features = false }
+wasmer-runtime-core = { version = "0.13.1" }
+near-runtime-fees = { path="../near-runtime-fees", version = "0.6.0" }
+near-vm-logic = { path="../near-vm-logic", version = "0.6.0", default-features = false, features = []}
+near-vm-errors = { path = "../near-vm-errors", version = "0.6.0" }
+pwasm-utils = "0.12.0"
+parity-wasm = "0.41.0"
+wasmparser = "0.44"
+
+[dev-dependencies]
+assert_matches = "1.3.0"
+wabt = "0.9"
+bencher = "0.1.5"
+
+[features]
+default = []
+
+# Use this feature to enable counting of fees and costs applied.
+costs_counting = ["near-vm-logic/costs_counting"]
+
+no_cache = []
+
+[[bench]]
+name = "bench"
+harness = false
